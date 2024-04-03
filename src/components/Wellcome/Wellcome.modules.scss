@@ -1,0 +1,21 @@
+.wellcome-div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  height: 100svh;
+
+  .wellcome-text-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    flex-grow: 1; /* Isso faz com que a div ao meio ocupe todo o espaço restante */
+
+    button{
+      margin-top: 10px;
+    }
+  }
+
+}
