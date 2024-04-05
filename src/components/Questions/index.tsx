@@ -1,49 +1,57 @@
-import "./Questions.modules.scss"
+import "./Questions.modules.scss";
 
 //Hooks
-import React from 'react'
-import { useContext,useState } from 'react'
-
+import React from "react";
+import { useContext, useState } from "react";
 
 //Context
-import { QuizContext } from '../../context/quiz'
+import { QuizContext } from "../../context/quiz";
 
 const Questions = () => {
+  const [gameStage, dispatch] = useContext(QuizContext);
 
-  const [gameStage, dispatch] = useContext(QuizContext)
+  const [counter, setCounter] = useState(0);
 
-  const [counter, setCounter] = useState(0)
+  const [final, setFinal] = useState(false);
 
+  const sumCounter = () => {
+    if (counter < gameStage.questions.length - 1) {
+      setCounter(counter + 1);
+    } else {
+      setFinal(true);
+      setCounter(gameStage.questions.length - 1);
+    }
+  };
 
-  const sumCounter = () =>{
+  const current_item = gameStage.questions[counter];
 
-    counter < gameStage.questions.length - 1  ? setCounter( counter + 1) : setCounter(gameStage.questions.length-1)
+  console.log(final);
+  console.log(counter);
+
+  if (final) {
+    console.log("mudar de estado");
+
+    dispatch({ type: "END_GAME" });
   }
 
-  const current_item = gameStage.questions[counter]
-  
-  console.log(gameStage)
-  console.log(current_item)
-
-  console.log(counter)
-
   return (
-    <div className='question-div'>
-
+    <div className="question-div">
       <div className="question-div-bg">
-      <h2>{current_item.question}</h2> 
-
-          {<div className='options-div'>
+        <h2>{current_item.question}</h2>
+        {
+          <div className="options-div">
             <ul>
-              {current_item.options.map((e,index)=>{ return <li key={index}>{e}</li>}) }
+              {current_item.options.map((e, index) => {
+                return <li key={index}>{e}</li>;
+              })}
             </ul>
-          </div> }
+          </div>
+        }
 
         <button onClick={sumCounter}>Próxima pergunta</button>
       </div>
-      
     </div>
-  )
-}
+  );
+};
 
-export default Questions
+export default Questions;
